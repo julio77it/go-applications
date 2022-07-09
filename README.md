@@ -1,4 +1,6 @@
 # go-containers
+[![Go Report Card](https://goreportcard.com/badge/github.com/julio77it/go-containers)](https://goreportcard.com/report/github.com/julio77it/go-containers)
+
 ## Golang missing containers - a simple implementation
 
 ### Set

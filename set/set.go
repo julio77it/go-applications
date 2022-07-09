@@ -57,7 +57,7 @@ func (s *setByMap[T]) Entries() []T {
 	keys := make([]T, len(s.container))
 
 	i := 0
-	for k, _ := range s.container {
+	for k := range s.container {
 		keys[i] = k
 		i++
 	}
