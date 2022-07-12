@@ -47,13 +47,17 @@ func (this *Filter[T, F]) Get() <-chan T {
 }
 
 func New[T any, F comparable](convertTtoF func(T) F) *Filter[T, F] {
+	return NewBuffered(1, 1, convertTtoF)
+}
+
+func NewBuffered[T any, F comparable](putBuffer uint, getBuffer uint, convertTtoF func(T) F) *Filter[T, F] {
 	this := &Filter[T, F]{
 		convert: convertTtoF,
 		filter:  set.New[F](),
 		add:     make(chan F),
 		remove:  make(chan F),
-		in:      make(chan T),
-		out:     make(chan T),
+		in:      make(chan T, putBuffer),
+		out:     make(chan T, getBuffer),
 	}
 	go this.run()
 
