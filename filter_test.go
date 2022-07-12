@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/julio77it/go-containers/filter"
+	"github.com/julio77it/go-containers/applications/filter"
 	"github.com/stretchr/testify/assert"
 )
 

@@ -21,7 +21,9 @@ PASS
 ok      github.com/julio77it/go-containers      3.449s
 ```
 
-### Filter
+## Applications
+
+#### Filter
 
 A simple goroutine/channel based filter
 It's a go-containers/set's application
@@ -51,3 +53,17 @@ If f(T) will produce a F value contained in filters entered by Add(), the T obje
 	got = <-filter.Get()
 ```
 
+#### Demux
+A simple hash based value demultiplexer
+Useful to shred data through containers, channels or struct by a hash function
+
+```go
+demux := demux.New[T,D](
+		// hash function
+		func(t T, l T) int { return int(t) % l },
+		// apply the choosen D to the current T
+		func(t T, d D) { /* d does something with t */ }, 
+		// D populated slice (hash func chooses which D in the slice will apply the T value)
+		[]D,
+	)
+```
