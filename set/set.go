@@ -46,12 +46,6 @@ func (s *setByMap[T]) Size() int {
 	return len(s.container)
 }
 
-// func sortSlice[T constraints.Ordered](s []T) {
-// 	sort.Slice(s, func(i, j int) bool {
-// 		return s[i] < s[j]
-// 	})
-// }
-
 // Size count entries in the container
 func (s *setByMap[T]) Entries() []T {
 	keys := make([]T, len(s.container))
