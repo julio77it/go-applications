@@ -38,7 +38,9 @@ func (s *setByMap[T]) Contains(value T) bool {
 
 // Remove remove value from the container, if needed
 func (s *setByMap[T]) Remove(value T) {
-	delete(s.container, value)
+	if s.Contains(value) {
+		delete(s.container, value)
+	}
 }
 
 // Size count entries in the container
