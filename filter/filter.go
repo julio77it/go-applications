@@ -1,7 +1,7 @@
 package filter
 
 import (
-	"github.com/julio77it/go-containers/set"
+	mapset "github.com/deckarep/golang-set/v2"
 )
 
 type Filter[T any, F comparable] struct {
@@ -10,7 +10,7 @@ type Filter[T any, F comparable] struct {
 	in     chan T
 	out    chan T
 
-	filter  set.Set[F]
+	filter  mapset.Set[F]
 	convert func(T) F
 }
 
@@ -18,7 +18,7 @@ func (this *Filter[T, F]) run() {
 	for {
 		select {
 		case f := <-this.add:
-			this.filter.Put(f)
+			this.filter.Add(f)
 
 		case f := <-this.remove:
 			this.filter.Remove(f)
@@ -47,13 +47,13 @@ func (this *Filter[T, F]) Get() <-chan T {
 }
 
 func New[T any, F comparable](convertTtoF func(T) F) *Filter[T, F] {
-	return NewBuffered(1, 1, convertTtoF)
+	return NewBuffered(0, 0, convertTtoF)
 }
 
 func NewBuffered[T any, F comparable](putBuffer uint, getBuffer uint, convertTtoF func(T) F) *Filter[T, F] {
 	this := &Filter[T, F]{
 		convert: convertTtoF,
-		filter:  set.New[F](),
+		filter:  mapset.NewSet[F](),
 		add:     make(chan F),
 		remove:  make(chan F),
 		in:      make(chan T, putBuffer),

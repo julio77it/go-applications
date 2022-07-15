@@ -3,25 +3,23 @@ package containers
 import (
 	"testing"
 
-	"github.com/julio77it/go-containers/applications/demux"
-	"github.com/julio77it/go-containers/set"
+	mapset "github.com/deckarep/golang-set/v2"
+	"github.com/julio77it/go-applications/demux"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestDemux(t *testing.T) {
 	max := 10
-	d := make([]set.Set[int], max, max)
+	d := make([]mapset.Set[int], max, max)
 
 	for i := 0; i < max; i++ {
-		d[i] = set.New[int]()
+		d[i] = mapset.NewSet[int]()
 	}
-
 	demux := demux.New(
 		func(t int, l int) int { return t },
-		func(t int, d set.Set[int]) { d.Put(t) },
+		func(t int, d mapset.Set[int]) { d.Add(t) },
 		d,
 	)
-
 	assert.False(t, d[4].Contains(4))
 	demux.Put(4)
 	assert.True(t, d[4].Contains(4))

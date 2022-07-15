@@ -1,32 +1,11 @@
-# go-containers
-[![Go Report Card](https://goreportcard.com/badge/github.com/julio77it/go-containers)](https://goreportcard.com/report/github.com/julio77it/go-containers)
-
-## Golang missing containers - a simple implementation
-
-### Set
-
-Set is built over a map[T]*T, which values will be always nil
-
-Put method checks if item is already in set, otherwise it makes the insert.
-This way seems to perfom better than to replace the same item
-
-```
-goos: darwin
-goarch: amd64
-pkg: github.com/julio77it/go-containers
-cpu: Intel(R) Core(TM) i5-3210M CPU @ 2.50GHz
-BenchmarkSetPut-4                       100000000               10.48 ns/op
-BenchmarkSetPutWithoutCheck-4           49628702                22.81 ns/op
-PASS
-ok      github.com/julio77it/go-containers      3.449s
-```
+# go-applications
+[![Go Report Card](https://goreportcard.com/badge/github.com/julio77it/go-applications)](https://goreportcard.com/report/github.com/julio77it/go-applications)
 
 ## Applications
 
-#### Filter
+### Filter
 
 A simple goroutine/channel based filter
-It's a go-containers/set's application
 ```go
     type Filter[T any, F comparable] struct {
         // ...
@@ -53,7 +32,7 @@ If f(T) will produce a F value contained in filters entered by Add(), the T obje
 	got = <-filter.Get()
 ```
 
-#### Demux
+### Demux
 A simple hash based value demultiplexer
 Useful to shred data through containers, channels or struct by a hash function
 
